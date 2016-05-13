@@ -1,7 +1,7 @@
 package ca.momentum.dao.impl;
 
 import ca.momentum.dao.DepartmentDAO;
-import ca.momentum.entity.Department;
+import ca.momentum.model.entity.Department;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +20,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
 
     public List<Department> listDepartment() {
         Session session = this.sessionFactory.getCurrentSession();
@@ -41,14 +40,8 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         return maxDeptId;
     }
 
-    public void createDepartment(String name, String location) {
-        Integer deptId = getMaxDeptId() + 1;
-        Department dept = new Department();
-        dept.setDeptId(deptId);
-        dept.setDeptNo("D" + deptId);
-        dept.setDeptName(name);
-        dept.setLocation(location);
+    public void createDepartment(Department department) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(dept);
+        session.persist(department);
     }
 }

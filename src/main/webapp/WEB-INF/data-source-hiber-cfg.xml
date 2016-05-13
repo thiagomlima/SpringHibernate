@@ -19,7 +19,7 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>ca.momentum.entity.Department</value>
+                <value>ca.momentum.model.entity.Department</value>
             </list>
         </property>
 

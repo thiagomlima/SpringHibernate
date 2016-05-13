@@ -1,6 +1,6 @@
 package ca.momentum.dao;
 
-import ca.momentum.entity.Department;
+import ca.momentum.model.entity.Department;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface DepartmentDAO {
 
     Integer getMaxDeptId();
 
-    void createDepartment(String name,String location);
+    void createDepartment(Department dept);
 }

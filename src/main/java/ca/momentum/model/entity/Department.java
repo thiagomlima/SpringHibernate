@@ -1,4 +1,4 @@
-package ca.momentum.entity;
+package ca.momentum.model.entity;
 
 import javax.persistence.*;
 
