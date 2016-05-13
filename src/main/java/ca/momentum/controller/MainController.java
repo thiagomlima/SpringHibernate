@@ -28,7 +28,7 @@ public class MainController {
 
 //    @RequestMapping({ "/deptList" })
 //    public String deptList(Model model) {
-//        departmentDAO.createDepartment("Dept Name", "Dept Location");
+//        departmentDAO.persitDepartment("Dept Name", "Dept Location");
 //
 //        List<Department> list = departmentDAO.listDepartment();
 //        for (Department dept : list) {
@@ -40,7 +40,7 @@ public class MainController {
 
     @RequestMapping({ "/deptList" })
     public String deptList(Model model) {
-//        departmentServices.createDepartment("Dept Name", "Dept Location");
+//        departmentServices.persitDepartment("Dept Name", "Dept Location");
 
         List<Department> list = departmentServices.listDepartment();
         for (Department dept : list) {

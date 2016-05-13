@@ -13,5 +13,7 @@ public interface DepartmentDAO {
 
     Integer getMaxDeptId();
 
-    void createDepartment(Department dept);
+    void persitDepartment(Department dept);
+
+    Department getDepartmentById(int id);
 }
