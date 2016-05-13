@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ca.momentum.model.services.impl.DepartmentServicesTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.126 sec
