@@ -31,4 +31,9 @@
         </property>
     </bean>
 
+    <!-- Manage transaction in test context -->
+    <!--<bean id="txMgr" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="myDataSource"/>-->
+    <!--</bean>-->
+
 </beans>

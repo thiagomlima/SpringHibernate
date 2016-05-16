@@ -1,13 +1,10 @@
 package ca.momentum.model.services.impl;
 
+import ca.momentum.BaseTestConfig;
 import ca.momentum.model.entity.Department;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -15,30 +12,33 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 /**
  * Created by Thiago Lima on 2016-05-12.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(transactionManager="txManager")
 @Transactional
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/*-cfg.xml", "file:src/main/webapp/WEB-INF/*-servlet.xml" })
-public class DepartmentServicesTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class DepartmentServicesTest extends BaseTestConfig {
 
     @Autowired
     DepartmentServices departmentServices;
 
-    @Test
-    public void whenListDepartmentSizeThenReturnFive() throws Exception {
-        assertThat(departmentServices.listDepartment()).hasSize(13);
-    }
+    Department department;
 
-    @Test
-    public void whenGetMaxIdThenOk() throws Exception {
-        assertThat(departmentServices.getMaxDeptId()).isEqualTo(13);
-    }
-
-    @Test
-    public void givenDepartmentWhenCreatingDeptThenItCanBeRetrieved() throws Exception {
-        Department department = departmentServices.createDepartment("myDept", "Location");
+    @Before
+    public void setUp() throws Exception {
+        department = departmentServices.createDepartment("myDept", "Location");
 
         departmentServices.persistDepartment(department);
+    }
+
+    @Test
+    public void givenPersistedDepartmentWhenListDepartmentSizeThenReturnFive() throws Exception {
+        assertThat(departmentServices.listDepartment()).hasSize(1);
+    }
+
+    @Test
+    public void givenPersistedDepartmentWhenGetMaxIdThenOk() throws Exception {
+        assertThat(departmentServices.getMaxDeptId()).isEqualTo(department.getDeptId());
+    }
+
+    @Test
+    public void givenPersistedDepartmentWhenCreatingDeptThenItCanBeRetrieved() throws Exception {
 
         Department retrievedDepartment = departmentServices.getDepartment(department.getDeptId());
         assertThat(department).isEqualTo(retrievedDepartment);

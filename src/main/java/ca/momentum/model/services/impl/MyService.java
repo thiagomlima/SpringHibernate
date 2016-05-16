@@ -1,19 +1,17 @@
 package ca.momentum.model.services.impl;
 
 import ca.momentum.model.services.Services;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by Thiago Lima on 2016-05-13.
  */
-@Service("myServiceTest")
+//FIXME Thiago
+//@Service("myService1")
 public class MyService implements Services {
 
     private String test;
 
-
-    @Autowired
+//    @Autowired
     public MyService(String test) {
         this.test = test;
     }

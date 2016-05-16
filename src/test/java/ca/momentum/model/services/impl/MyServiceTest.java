@@ -1,5 +1,6 @@
 package ca.momentum.model.services.impl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +15,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/*-cfg.xml", "file:src/main/webapp/WEB-INF/*-servlet.xml" })
-//@ContextConfiguration(locations = {"classpath:services-cfg.xml"})
 public class MyServiceTest {
 
-//    @Autowired
-//    private MyService service;
-
     @Autowired
-    @Qualifier("myServiceTest")
+    @Qualifier("myService1")
     private MyService service1;
 
     @Autowired
-    @Qualifier("myServiceTest2")
+    @Qualifier("myService2")
     private MyService service2;
 
     @Test
+    @Ignore
     public void getServiceName() throws Exception {
-//        assertThat(service.getServiceName()).isEqualTo("Test");
         assertThat(service1.getServiceName()).isEqualTo("test1");
         assertThat(service2.getServiceName()).isEqualTo("test2");
     }

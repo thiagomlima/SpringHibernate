@@ -27,9 +27,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            /WEB-INF/services-cfg.xml
             /WEB-INF/data-source-hiber-cfg.xml
             /WEB-INF/dao-cfg.xml
-            /WEB-INF/services-cfg.xml
             /WEB-INF/transaction-cfg.xml
         </param-value>
     </context-param>

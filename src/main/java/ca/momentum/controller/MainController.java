@@ -15,9 +15,6 @@ import java.util.List;
 @Controller
 public class MainController {
 
-//    @Autowired
-//    private DepartmentDAO departmentDAO;
-
     @Autowired
     private DepartmentServices departmentServices;
 
@@ -26,22 +23,8 @@ public class MainController {
         return "index";
     }
 
-//    @RequestMapping({ "/deptList" })
-//    public String deptList(Model model) {
-//        departmentDAO.persitDepartment("Dept Name", "Dept Location");
-//
-//        List<Department> list = departmentDAO.listDepartment();
-//        for (Department dept : list) {
-//            System.out.println("Dept No " + dept.getDeptNo());
-//        }
-//        model.addAttribute("departments", list);
-//        return "deptList";
-//    }
-
     @RequestMapping({ "/deptList" })
     public String deptList(Model model) {
-//        departmentServices.persitDepartment("Dept Name", "Dept Location");
-
         List<Department> list = departmentServices.listDepartment();
         for (Department dept : list) {
             System.out.println("Dept No " + dept.getDeptNo());
@@ -50,7 +33,10 @@ public class MainController {
         return "deptList";
     }
 
-    public DepartmentServices getDepartmentServices() {
-        return departmentServices;
+    @RequestMapping({ "/createDept" })
+    public String createDept(Model model) {
+        Department department = departmentServices.createDepartment("Dept Name", "Dept Location");
+        departmentServices.persistDepartment(department);
+        return "forward:deptList";
     }
 }

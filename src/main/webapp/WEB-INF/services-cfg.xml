@@ -4,21 +4,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 
-    <bean id="myService" class="ca.momentum.model.services.impl.MyService">
-        <constructor-arg value="Test"/>
-    </bean>
-
     <bean id="departmentServices" class="ca.momentum.model.services.impl.DepartmentServices">
         <constructor-arg ref="departmentDAO"/>
     </bean>
 
+    <!--<bean id="myService" class="ca.momentum.model.services.impl.MyService">-->
+        <!--<constructor-arg type="java.lang.String" value="test"/>-->
+    <!--</bean>-->
 
-    <bean id="myServiceTest" class="ca.momentum.model.services.impl.MyService">
-        <constructor-arg value="test1"/>
-    </bean>
+    <!--<bean id="myService1" class="ca.momentum.model.services.impl.MyService">-->
+        <!--<constructor-arg type="java.lang.String" value="test1"/>-->
+    <!--</bean>-->
 
-    <bean id="myServiceTest2" class="ca.momentum.model.services.impl.MyService">
-        <constructor-arg value="test2"/>
-    </bean>
+    <!--<bean id="myService2" class="ca.momentum.model.services.impl.MyService">-->
+        <!--<constructor-arg type="java.lang.String" value="test2"/>-->
+    <!--</bean>-->
 
 </beans>

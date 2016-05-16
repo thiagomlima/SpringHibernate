@@ -12,11 +12,11 @@
 
     <import resource="data-source-hiber-cfg.xml"/>
 
-    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-    <bean id="txManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="mySessionFactory"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <bean id ="transactionManager" class = "org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name = "sessionFactory" ref = "mySessionFactory"/>
     </bean>
 
 </beans>
