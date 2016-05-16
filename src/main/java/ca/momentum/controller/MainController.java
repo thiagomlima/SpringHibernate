@@ -18,6 +18,11 @@ public class MainController {
     @Autowired
     private DepartmentServices departmentServices;
 
+    @Autowired
+    public MainController(DepartmentServices departmentServices) {
+        this.departmentServices = departmentServices;
+    }
+
     @RequestMapping({ "/", "/home", "/index" })
     public String home(Model model) {
         return "index";
