@@ -32,4 +32,10 @@
         <put-attribute name="body" value="/WEB-INF/bodyfragments/_deptList.jsp" />
     </definition>
 
+    <!-- Department List Page -->
+    <definition name="deptFormPage" extends="base.definition">
+        <put-attribute name="title" value="Department Form" />
+        <put-attribute name="body" value="/WEB-INF/bodyfragments/_deptForm.jsp" />
+    </definition>
+
 </tiles-definitions>

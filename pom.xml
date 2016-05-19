@@ -24,6 +24,7 @@
         <oracle.ojdbc6-version>11.2.0.3</oracle.ojdbc6-version>
         <tiles-version>3.0.5</tiles-version>
         <slf4j-version>1.7.21</slf4j-version>
+        <spring.security-version>4.0.4.RELEASE</spring.security-version>
     </properties>
 
     <repositories>
@@ -231,6 +232,22 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j-version}</version>
         </dependency>
+
+        <!-- Spring Security Artifacts - START -->
+        <!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security-version}</version>
+        </dependency>
+
+        <!-- http://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security-version}</version>
+        </dependency>
+        <!-- Spring Security Artifacts - END -->
 
 
         <!-- Tiles Extras -->

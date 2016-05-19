@@ -11,13 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Thiago Lima on 2016-05-19.
@@ -32,12 +31,12 @@ public class DepartmentController {
     private DepartmentServices departmentServices;
 
     @Autowired
-    public DepartmentController(DepartmentServices departmentServices,DepartmentFormValidator departmentFormValidator) {
+    public DepartmentController(DepartmentServices departmentServices, DepartmentFormValidator departmentFormValidator) {
         this.departmentServices = departmentServices;
         this.departmentFormValidator = departmentFormValidator;
     }
 
-    @RequestMapping({ "/deptList" })
+    @RequestMapping({"/deptList"})
     public String deptList(Model model) {
         logger.info("createDept");
         List<Department> list = departmentServices.listDepartment();
@@ -48,7 +47,7 @@ public class DepartmentController {
         return "deptListPage";
     }
 
-    @RequestMapping({ "/createDept" })
+    @RequestMapping({"/createDept"})
     public String createDept(Model model) {
         logger.info("createDept");
         Department department = departmentServices.createDepartment("Dept Name", "Dept Location");
@@ -62,22 +61,30 @@ public class DepartmentController {
         binder.setValidator(departmentFormValidator);
     }
 
-    @RequestMapping({" /dept/add" })
+    @RequestMapping({" /dept/add"})
     public String deptForm(Model model) {
         logger.info("deptForm");
 
         Department department = new Department();
+        department.setDeptName("test");
         model.addAttribute("department", department);
 
         return "deptFormPage";
     }
 
     @RequestMapping(value = "/saveOrUpdateDept", method = RequestMethod.POST)
-    public String saveOrUpdateUser(@ModelAttribute("deptForm") @Validated Department department,
+    public String saveOrUpdateUser(@ModelAttribute("department") @Validated Department department,
                                    BindingResult result, Model model,
                                    final RedirectAttributes redirectAttributes) {
 
+        logger.info("saveOrUpdateUser");
         logger.debug("saveOrUpdateUser() : {}", department);
+
+
+        System.out.println(model.asMap().size());
+        for (Map.Entry<String, Object> stringObjectEntry : model.asMap().entrySet()) {
+            System.out.println(stringObjectEntry.getKey() + " - " + stringObjectEntry.getValue());
+        }
 
         if (result.hasErrors()) {
             return "deptFormPage";
@@ -90,15 +97,32 @@ public class DepartmentController {
 //            }else{
 //                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
 //            }
-
+            int id = Math.abs(UUID.randomUUID().hashCode());
+            department.setDeptId(id);
+            department.setDeptNo("D" + id);
+            department.setLocation("Location" + id);
             departmentServices.save(department);
 
             // POST/REDIRECT/GET
-            return "redirect:/" + department.getDeptId();
+            return "redirect:/dept/" + department.getDeptId();
 
             // POST/FORWARD/GET
             // return "user/list";
 
         }
+    }
+
+    @RequestMapping(value = " /dept/{id}", method = RequestMethod.GET)
+    public String showDept(@PathVariable String id) {
+        logger.info("showDept");
+
+        Department department = departmentServices.getDepartmentById(Integer.parseInt(id));
+
+
+//        Department department = new Department();
+//        department.setDeptName("test");
+//        model.addAttribute("department", department);
+
+        return "indexPage";
     }
 }

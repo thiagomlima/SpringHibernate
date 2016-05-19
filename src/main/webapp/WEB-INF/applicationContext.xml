@@ -63,4 +63,15 @@
 
     <jpa:repositories base-package="com.thiago.repositories"/>
 
+    <!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+        <!--<property name="basename" value="/message/validator" />-->
+    <!--</bean>-->
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>message/validator</value>
+        </property>
+    </bean>
+
 </beans>
