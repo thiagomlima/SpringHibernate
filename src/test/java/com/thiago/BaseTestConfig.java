@@ -11,7 +11,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager="transactionManager")
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext-test.xml", "file:src/main/webapp/WEB-INF/*-servlet.xml" })
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext-test.xml"})
 public abstract class BaseTestConfig extends AbstractTransactionalJUnit4SpringContextTests {
 
 }
