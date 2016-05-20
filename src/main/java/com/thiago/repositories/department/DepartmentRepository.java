@@ -1,4 +1,4 @@
-package com.thiago.repositories.departments;
+package com.thiago.repositories.department;
 
 import com.thiago.model.entity.Department;
 import org.springframework.data.jpa.repository.Query;

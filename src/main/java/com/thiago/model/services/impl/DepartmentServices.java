@@ -2,7 +2,7 @@ package com.thiago.model.services.impl;
 
 import com.thiago.model.entity.Department;
 import com.thiago.model.services.Services;
-import com.thiago.repositories.departments.DepartmentRepository;
+import com.thiago.repositories.department.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
