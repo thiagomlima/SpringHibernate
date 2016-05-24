@@ -1,0 +1,6 @@
+com\thiago\app\controller\DepartmentControllerTest.class
+com\thiago\BaseControllerTestConfig.class
+com\thiago\app\controller\MainControllerTest.class
+com\thiago\model\services\impl\DepartmentServicesTest.class
+com\thiago\model\services\impl\MyServiceTest.class
+com\thiago\BaseTestConfig.class

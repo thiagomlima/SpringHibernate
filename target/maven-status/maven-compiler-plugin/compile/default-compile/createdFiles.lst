@@ -1,0 +1,9 @@
+com\thiago\model\entity\Department.class
+com\thiago\model\services\impl\DepartmentServices.class
+com\thiago\model\services\impl\MyService.class
+com\thiago\app\validators\DepartmentFormValidator.class
+com\thiago\repositories\department\DepartmentRepository.class
+com\thiago\repositories\MainRepository.class
+com\thiago\model\services\Services.class
+com\thiago\app\controller\DepartmentController.class
+com\thiago\app\controller\MainController.class

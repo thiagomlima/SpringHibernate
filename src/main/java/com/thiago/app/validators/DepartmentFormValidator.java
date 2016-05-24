@@ -44,7 +44,7 @@ public class DepartmentFormValidator implements Validator {
 //        }
 
         if(department.getDeptName()==null){
-            errors.rejectValue("deptName", "NotEmpty.userForm.name");
+            errors.rejectValue("deptName", "deptForm.notEmpty.deptName");
         }
     }
 }

@@ -4,6 +4,6 @@ C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\model\services
 C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\repositories\MainRepository.java
 C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\app\controller\DepartmentController.java
 C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\model\entity\Department.java
-C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\repositories\Department\DepartmentRepository.java
+C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\repositories\department\DepartmentRepository.java
 C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\model\services\impl\DepartmentServices.java
 C:\Users\Thiago Lima\dev\SpringHibernate\src\main\java\com\thiago\app\validators\DepartmentFormValidator.java
