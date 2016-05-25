@@ -31,7 +31,9 @@ public class DepartmentFormValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Department department = (Department) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deptName", "NotEmpty.userForm.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deptName", "deptForm.notEmpty.deptName");
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deptNo", "deptForm.notEmpty.deptNo");
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "location", "deptForm.notEmpty.location");
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.userForm.email");
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty.userForm.address");
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.userForm.password");
@@ -43,8 +45,8 @@ public class DepartmentFormValidator implements Validator {
 //            errors.rejectValue("email", "Pattern.userForm.email");
 //        }
 
-        if(department.getDeptName()==null){
-            errors.rejectValue("deptName", "deptForm.notEmpty.deptName");
-        }
+//        if(department.getDeptName()==null){
+//            errors.rejectValue("deptName", "deptForm.notEmpty.deptName");
+//        }
     }
 }

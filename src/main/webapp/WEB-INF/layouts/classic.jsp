@@ -4,12 +4,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
 <html>
 <head>
 <title><tiles:getAsString name="title" /></title>
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+    	<div class="container">
+    		<p class="navbar-text">Teste Bootstrap</p>
+    	</div>
+    </nav>
    <table width="100%">
        <tr>
            <td colspan="2"><tiles:insertAttribute name="header" /></td>

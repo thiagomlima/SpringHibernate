@@ -6,6 +6,7 @@ import com.thiago.model.services.impl.DepartmentServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -36,15 +35,39 @@ public class DepartmentController {
         this.departmentFormValidator = departmentFormValidator;
     }
 
-    @RequestMapping({"/deptList"})
-    public String deptList(Model model) {
-        logger.info("createDept");
-        List<Department> list = departmentServices.listDepartment();
-        for (Department dept : list) {
-            System.out.println("Dept No " + dept.getDeptNo());
-        }
-        model.addAttribute("departments", list);
+    @RequestMapping({"/dept/list/{pageNumber}"})
+    public String deptList(@PathVariable Integer pageNumber, Model model) {
+        logger.info("list");
+
+        configurePagination(pageNumber, model);
+
         return "deptListPage";
+    }
+
+    private void configurePagination(@PathVariable Integer pageNumber, Model model) {
+        Page<Department> page = departmentServices.listDepartment(pageNumber);
+
+        logger.info("pageNumber: "+pageNumber);
+        logger.info("getTotalPages: "+page.getTotalPages());
+        if (pageNumber > page.getTotalPages() && page.getTotalPages() > 0){
+            pageNumber--;
+            page = departmentServices.listDepartment(pageNumber);
+        }
+
+        int current = page.getNumber() + 1;
+        int begin = Math.max(1, current - 5);
+        int end = Math.min(begin + 10, page.getTotalPages());
+
+        for (Department department : page.getContent()) {
+            System.out.println(department.getDeptId());
+        }
+
+        model.addAttribute("departments", page.getContent());
+        model.addAttribute("departmentPage", page);
+        model.addAttribute("beginIndex", begin);
+        model.addAttribute("endIndex", end);
+        model.addAttribute("currentIndex", current);
+        model.addAttribute("test", "testThiago");
     }
 
     @RequestMapping({"/createDept"})
@@ -52,39 +75,53 @@ public class DepartmentController {
         logger.info("createDept");
         Department department = departmentServices.createDepartment("Dept Name", "Dept Location");
         departmentServices.save(department);
-        return "forward:deptListPage";
+        return "forward:/dept/list/1";
     }
 
     //Set a form validator
-    @InitBinder
+    @InitBinder("department")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(departmentFormValidator);
     }
 
-    @RequestMapping({" /dept/add"})
+    @RequestMapping({"/dept/add"})
     public String deptForm(Model model) {
-        logger.info("deptForm");
+        logger.info("add");
 
         Department department = new Department();
-        department.setDeptName("test");
         model.addAttribute("department", department);
 
         return "deptFormPage";
+    }
+
+    @RequestMapping({"/dept/edit/id={id}"})
+    public String deptForm(@PathVariable String id, Model model) {
+        logger.info("update");
+
+        Department department = departmentServices.getDepartmentById(Integer.parseInt(id));
+        model.addAttribute("department", department);
+
+        return "deptFormPage";
+    }
+
+    @RequestMapping({"/dept/delete/page={pageNumber}&id={id}"})
+    public String delete(@PathVariable Integer id, @PathVariable Integer pageNumber, Model model) {
+        logger.info("update");
+
+        Department department = departmentServices.getDepartmentById(id);
+        departmentServices.delete(department);
+
+        configurePagination(pageNumber, model);
+
+        return "deptListPage";
+//        return "forward:/dept/list/"+pageNumber;
     }
 
     @RequestMapping(value = "/saveOrUpdateDept", method = RequestMethod.POST)
     public String saveOrUpdateUser(@ModelAttribute("department") @Validated Department department,
                                    BindingResult result, Model model,
                                    final RedirectAttributes redirectAttributes) {
-
         logger.info("saveOrUpdateUser");
-        logger.debug("saveOrUpdateUser() : {}", department);
-
-
-        System.out.println(model.asMap().size());
-        for (Map.Entry<String, Object> stringObjectEntry : model.asMap().entrySet()) {
-            System.out.println(stringObjectEntry.getKey() + " - " + stringObjectEntry.getValue());
-        }
 
         if (result.hasErrors()) {
             return "deptFormPage";
@@ -92,19 +129,23 @@ public class DepartmentController {
 
             // Add message to flash scope
             redirectAttributes.addFlashAttribute("css", "success");
-//            if(department.isNew()){
-//                redirectAttributes.addFlashAttribute("msg", "User added successfully!");
-//            }else{
-//                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
-//            }
-            int id = Math.abs(UUID.randomUUID().hashCode());
+            System.out.println(department.getDeptId());
+            int id;
+            if(department.getDeptId() == 0){
+                id = Math.abs(UUID.randomUUID().hashCode());
+                redirectAttributes.addFlashAttribute("msg", "User added successfully!");
+            }else{
+                id = department.getDeptId();
+                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
+            }
             department.setDeptId(id);
             department.setDeptNo("D" + id);
-            department.setLocation("Location" + id);
+            department.setDeptName(department.getDeptName());
+            department.setLocation(department.getLocation());
             departmentServices.save(department);
 
             // POST/REDIRECT/GET
-            return "redirect:/dept/" + department.getDeptId();
+            return "redirect:/dept/id=" + department.getDeptId();
 
             // POST/FORWARD/GET
             // return "user/list";
@@ -112,17 +153,13 @@ public class DepartmentController {
         }
     }
 
-    @RequestMapping(value = " /dept/{id}", method = RequestMethod.GET)
-    public String showDept(@PathVariable String id) {
+    @RequestMapping(value = "/dept/id={id}", method = RequestMethod.GET)
+    public String showDept(@PathVariable String id, Model model) {
         logger.info("showDept");
 
         Department department = departmentServices.getDepartmentById(Integer.parseInt(id));
+        model.addAttribute("department", department);
 
-
-//        Department department = new Department();
-//        department.setDeptName("test");
-//        model.addAttribute("department", department);
-
-        return "indexPage";
+        return "showDeptPage";
     }
 }
