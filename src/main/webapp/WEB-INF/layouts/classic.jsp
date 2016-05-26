@@ -11,11 +11,6 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse" role="navigation">
-    	<div class="container">
-    		<p class="navbar-text">Teste Bootstrap</p>
-    	</div>
-    </nav>
    <table width="100%">
        <tr>
            <td colspan="2"><tiles:insertAttribute name="header" /></td>

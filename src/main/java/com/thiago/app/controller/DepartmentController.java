@@ -47,9 +47,9 @@ public class DepartmentController {
     private void configurePagination(@PathVariable Integer pageNumber, Model model) {
         Page<Department> page = departmentServices.listDepartment(pageNumber);
 
-        logger.info("pageNumber: "+pageNumber);
-        logger.info("getTotalPages: "+page.getTotalPages());
-        if (pageNumber > page.getTotalPages() && page.getTotalPages() > 0){
+        logger.info("pageNumber: " + pageNumber);
+        logger.info("getTotalPages: " + page.getTotalPages());
+        if (pageNumber > page.getTotalPages() && page.getTotalPages() > 0) {
             pageNumber--;
             page = departmentServices.listDepartment(pageNumber);
         }
@@ -58,10 +58,13 @@ public class DepartmentController {
         int begin = Math.max(1, current - 5);
         int end = Math.min(begin + 10, page.getTotalPages());
 
-        for (Department department : page.getContent()) {
-            System.out.println(department.getDeptId());
+
+        int startIndexPage = (page.getNumberOfElements() * pageNumber) - (page.getNumberOfElements() - 1);
+        if (page.isLast() && page.getTotalElements() % page.getTotalPages() != 0){
+            startIndexPage = (int)page.getTotalElements() - page.getNumberOfElements() +1;
         }
 
+        model.addAttribute("startIndexPage", startIndexPage);
         model.addAttribute("departments", page.getContent());
         model.addAttribute("departmentPage", page);
         model.addAttribute("beginIndex", begin);
@@ -129,12 +132,11 @@ public class DepartmentController {
 
             // Add message to flash scope
             redirectAttributes.addFlashAttribute("css", "success");
-            System.out.println(department.getDeptId());
             int id;
-            if(department.getDeptId() == 0){
+            if (department.getDeptId() == 0) {
                 id = Math.abs(UUID.randomUUID().hashCode());
                 redirectAttributes.addFlashAttribute("msg", "User added successfully!");
-            }else{
+            } else {
                 id = department.getDeptId();
                 redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
             }

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class DepartmentServices implements Services {
 
 
-    private static final int PAGE_SIZE = 2;
+    private static final int PAGE_SIZE = 5;
 
     DepartmentRepository departmentRepository;
 

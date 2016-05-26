@@ -3,10 +3,24 @@
 <c:url var="lastUrl" value="/dept/list/${departmentPage.totalPages}" />
 <c:url var="prevUrl" value="/dept/list/${currentIndex - 1}" />
 <c:url var="nextUrl" value="/dept/list/${currentIndex + 1}" />
+<style>
+ul#pagination li {
+    display:inline-block;
+    align: center;
+
+    /* visual do link */
+    	background-color:#EDEDED;
+    	color: #333;
+    	text-decoration: none;
+    	border-bottom:3px solid #EDEDED;
+}
+</style>
+
 <div align="center">
     <h1>Department List</h1>
          <table border="1">
-            <th>#</th>
+             <th>#</th>
+             <th>#</th>
              <th>Id</th>
              <th>No</th>
              <th>Dept No</th>
@@ -15,9 +29,11 @@
              <th></th>
              <th></th>
 
+             <c:set var="count" value="${startIndexPage}" />
              <c:forEach var="dept" items="${departments}" varStatus="status">
              <tr>
                  <td>${(status.index + 1)* currentIndex}</td>
+                 <td>${count}</td>
                  <td>${dept.deptId}</td>
                  <td>${dept.deptNo}</td>
                  <td>${dept.deptName}</td>
@@ -26,11 +42,12 @@
                  <td><a href="${pageContext.request.contextPath}/dept/delete/page=${currentIndex}&id=${dept.deptId}">Delete</td>
                  <td>${dept.location}</td>
              </tr>
+             <c:set var="count" value="${count + 1}" />
              </c:forEach>
         </table>
 </div>
-<div class="pagination">
-    <ul>
+<div align="center" class="pagination1" >
+    <ul id="pagination">
         <c:choose>
             <c:when test="${currentIndex == 1}">
                 <li class="disabled"><a href="#">&lt;&lt;</a></li>
