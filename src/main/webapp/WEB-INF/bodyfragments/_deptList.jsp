@@ -32,7 +32,7 @@ ul#pagination li {
              <c:set var="count" value="${startIndexPage}" />
              <c:forEach var="dept" items="${departments}" varStatus="status">
              <tr>
-                 <td>${(status.index + 1)* currentIndex}</td>
+                 <td>${(status.index + 1)}</td>
                  <td>${count}</td>
                  <td>${dept.deptId}</td>
                  <td>${dept.deptNo}</td>
